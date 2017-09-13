@@ -1,6 +1,6 @@
 'use strict'
 
-const debug = require('debug')('group-proj-express-api:error-handler')
+const debug = require('debug')('cms-express-api:error-handler')
 
 const errorHandler = (err, req, res, next) => {
   // jshint unused:false

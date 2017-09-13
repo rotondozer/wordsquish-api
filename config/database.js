@@ -1,6 +1,6 @@
 'use strict'
 
-const mongooseBaseName = 'group-proj-express-api'
+const mongooseBaseName = 'cms-express-api'
 
 const environment = process.env.NODE_ENV || 'development'
 const database = {
