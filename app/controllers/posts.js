@@ -22,9 +22,27 @@ const create = (req, res, next) => {
     .catch(next)
 }
 
+const show = (req, res) => {
+  res.json({
+    // request.user just for JSON display?
+    post: req.post.toJSON({ user: req.user })
+  })
+}
+
+// for curl, if a value is not included it will update to blank
+const update = (req, res, next) => {
+  delete req.body._owner  // disallow owner reassignment.
+  req.post.update(req.body.post)
+    .then(() => res.sendStatus(204))
+    .catch(next)
+}
+
 module.exports = controller({
-  create
+  create,
+  show,
+  update
 }, { before: [
+  // setUser is allowing for authentication??
   { method: setUser, only: ['index', 'show'] },
   { method: authenticate, except: ['index', 'show'] },
   { method: setModel(Post), only: ['show'] },
