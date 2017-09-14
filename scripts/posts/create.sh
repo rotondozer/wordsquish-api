@@ -1,7 +1,7 @@
 #!/bin/bash
 
-API="https://cms-express-api.herokuapp.com"
-URL_PATH="/examples"
+API="http://localhost:4741"
+URL_PATH="/posts"
 
 curl "${API}${URL_PATH}" \
   --include \
@@ -9,8 +9,9 @@ curl "${API}${URL_PATH}" \
   --header "Content-Type: application/json" \
   --header "Authorization: Token token=${TOKEN}" \
   --data '{
-    "example": {
-      "text": "'"${TEXT}"'"
+    "post": {
+      "title": "'"${TITLE}"'",
+      "body": "'"${BODY}"'"
     }
   }'
 
