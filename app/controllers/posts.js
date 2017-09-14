@@ -37,10 +37,17 @@ const update = (req, res, next) => {
     .catch(next)
 }
 
+const destroy = (req, res, next) => {
+  req.post.remove()
+    .then(() => res.sendStatus(204))
+    .catch(next)
+}
+
 module.exports = controller({
   create,
   show,
-  update
+  update,
+  destroy
 }, { before: [
   // setUser is allowing for authentication??
   { method: setUser, only: ['index', 'show'] },
