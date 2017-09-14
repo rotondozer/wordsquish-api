@@ -23,3 +23,4 @@ module.exports = require('lib/wiring/routes')
 // TODO separate routes for updating title or body? or add
 // conditional in controller
 .patch('/posts/:id', 'posts#update')
+.delete('/posts/:id', 'posts#destroy')
