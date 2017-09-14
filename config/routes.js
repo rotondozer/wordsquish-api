@@ -18,4 +18,8 @@ module.exports = require('lib/wiring/routes')
 .resources('users', { only: ['index', 'show'] })
 
 // all routes created
-
+.post('/posts', 'posts#create')
+.get('/posts/:id', 'posts#show')
+// TODO separate routes for updating title or body? or add
+// conditional in controller
+.patch('/posts/:id', 'posts#update')
