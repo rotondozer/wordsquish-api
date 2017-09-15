@@ -56,9 +56,24 @@ const show = (req, res) => {
 }
 
 // for curl, if a value is not included it will update to blank
+// UPDATING your files returns 204
+// UPDATING another users returns 404
 const update = (req, res, next) => {
+  console.log('request.user === ' + req.user)
+  console.log("req.body.post.title === " + req.body.post.title)
+  console.log("request post title === " + req.post.title)
+  // req.body.post === data being sent to update
+  const updatedPostData = req.body.post
+  // for each key in req.post === ''
+  for (const prop in updatedPostData) {
+    if (updatedPostData[prop] === '') {
+      // delete that key before sending it to update function
+      delete updatedPostData[prop]
+    }
+  }
   delete req.body._owner  // disallow owner reassignment.
-  req.post.update(req.body.post)
+  // req.post === the post in the database to be updated
+  req.post.update(updatedPostData) // send in filtered UPDATE data
     .then(() => res.sendStatus(204))
     .catch(next)
 }
