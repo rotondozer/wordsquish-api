@@ -3,16 +3,19 @@
 const mongoose = require('mongoose')
 
 const pageSchema = new mongoose.Schema({
-  pageTitle: {
+  title: {
     type: String,
     required: true
   },
   sections: {
-    sectionTitle: {
+    heading: {
       type: String,
       required: true
     },
     body: {
+      type: String
+    },
+    footer: {
       type: String
     }
   },

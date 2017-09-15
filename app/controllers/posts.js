@@ -25,7 +25,19 @@ const create = (req, res, next) => {
 // A signed in user will be able to get ALL posts
 // (from other users also)
 const index = (req, res, next) => {
+  console.log('index method in posts controller')
   Post.find()
+    .then(posts => res.json({
+      posts: posts.map((e) =>
+        e.toJSON({ virtuals: true, user: req.user }))
+    }))
+    .catch(next)
+}
+
+const indexUserPosts = (req, res, next) => {
+  // Need to check if req.user.id === params.user_id?
+  console.log('indexUserPosts method in posts controller')
+  Post.find({ _owner: req.params.user_id })
     .then(posts => res.json({
       posts: posts.map((e) =>
         e.toJSON({ virtuals: true, user: req.user }))
@@ -36,16 +48,29 @@ const index = (req, res, next) => {
 // Like index, a signed in user will have access to ANY post
 // including those created by other users
 const show = (req, res) => {
+  console.log('show method in posts controller')
   res.json({
     // request.user just for JSON display?
-    post: req.post.toJSON({ user: req.user })
+    post: req.post.toJSON({ virtuals: true, user: req.user })
   })
 }
 
-// for curl, if a value is not included it will update to blank
+// UPDATING your files returns 204
+// UPDATING another users returns 404
 const update = (req, res, next) => {
+  console.log('update method in posts controller')
+  // req.body.post === data being sent to update
+  const updatedPostData = req.body.post
+  // for each key in req.post === ''
+  for (const prop in updatedPostData) {
+    if (updatedPostData[prop] === '') {
+      // delete that key before sending it to update function
+      delete updatedPostData[prop]
+    }
+  }
   delete req.body._owner  // disallow owner reassignment.
-  req.post.update(req.body.post)
+  // req.post === the post in the database to be updated
+  req.post.update(updatedPostData) // send in filtered UPDATE data
     .then(() => res.sendStatus(204))
     .catch(next)
 }
@@ -59,11 +84,11 @@ const destroy = (req, res, next) => {
 module.exports = controller({
   create,
   index,
+  indexUserPosts,
   show,
   update,
   destroy
 }, { before: [
-  // setUser is allowing for authentication??
   { method: setUser, only: ['index', 'show'] },
   { method: authenticate, except: ['index', 'show'] },
   { method: setModel(Post), only: ['show'] },
