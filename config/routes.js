@@ -19,17 +19,25 @@ module.exports = require('lib/wiring/routes')
 
 // all routes created
 
-.get('/posts/:id', 'posts#show')
-.get('/posts', 'posts#index')
+// One post from current user?
 .patch('/posts/:id', 'posts#update')
 
 // **** Need to GET:
 // All posts by all users
+.get('/posts', 'posts#index')
 // All pages by all users
+.get('/pages', 'pages#index')
+
 // All posts by current user
-// All pages by current user
-// One post by current user
-// One page by current User
+.get('/posts/:user_id', 'posts#indexUserPosts')
+// // All pages by current user
+.get('/pages/:user_id', 'pages#indexUserPages')
+// // One post by current user
+// .get('/posts/:user_id/:id', 'posts#showUserPost')
+// // One page by current User
+// .get('pages/:user_id/:id', 'pages#showUserPage')
+// One post from any user
+.get('/posts/:id', 'posts#show')
 
 // **** Need to UPDATE:
 // One part of one page by current user, without deleting other content

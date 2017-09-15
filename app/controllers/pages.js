@@ -18,6 +18,19 @@ const index = (req, res, next) => {
     .catch(next)
 }
 
+const indexUserPages = (req, res, next) => {
+  // Need to check if req.user.id === params.user_id?
+  console.log("req.user === " + req.user.id)
+  console.log("params ==== " + req.params.user_id)
+  console.log("request body owner === " + req.body._owner)
+  Page.find({ _owner: req.params.user_id })
+    .then(pages => res.json({
+      pages: pages.map((e) =>
+        e.toJSON({ virtuals: true, user: req.user }))
+    }))
+    .catch(next)
+}
+
 // One page from any user
 const show = (req, res) => {
   res.json({
@@ -56,6 +69,7 @@ const destroy = (req, res, next) => {
 
 module.exports = controller({
   index,
+  indexUserPages,
   show,
   create,
   update,

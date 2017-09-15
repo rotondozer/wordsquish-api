@@ -33,6 +33,19 @@ const index = (req, res, next) => {
     .catch(next)
 }
 
+const indexUserPosts = (req, res, next) => {
+  // Need to check if req.user.id === params.user_id?
+  console.log("req.user === " + req.user.id)
+  console.log("params ==== " + req.params.user_id)
+  console.log("request body owner === " +req.body._owner)
+  Post.find({ _owner: req.params.user_id })
+    .then(posts => res.json({
+      posts: posts.map((e) =>
+        e.toJSON({ virtuals: true, user: req.user }))
+    }))
+    .catch(next)
+}
+
 // Like index, a signed in user will have access to ANY post
 // including those created by other users
 const show = (req, res) => {
@@ -59,11 +72,11 @@ const destroy = (req, res, next) => {
 module.exports = controller({
   create,
   index,
+  indexUserPosts,
   show,
   update,
   destroy
 }, { before: [
-  // setUser is allowing for authentication??
   { method: setUser, only: ['index', 'show'] },
   { method: authenticate, except: ['index', 'show'] },
   { method: setModel(Post), only: ['show'] },
