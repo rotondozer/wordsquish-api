@@ -8,6 +8,7 @@ const authenticate = require('./concerns/authenticate')
 const setUser = require('./concerns/set-current-user')
 const setModel = require('./concerns/set-mongoose-model')
 
+// All pages from all users
 const index = (req, res, next) => {
   Page.find()
     .then(pages => res.json({
@@ -17,12 +18,14 @@ const index = (req, res, next) => {
     .catch(next)
 }
 
+// One page from any user
 const show = (req, res) => {
   res.json({
     page: req.pages.toJSON({ virtuals: true, user: req.user })
   })
 }
 
+// Create 1 page with sections
 const create = (req, res, next) => {
   const page = Object.assign(req.body.page, {
     _owner: req.user._id
@@ -36,6 +39,7 @@ const create = (req, res, next) => {
     .catch(next)
 }
 
+// 1 page from any user. Any value not submitted will be updated to blank
 const update = (req, res, next) => {
   delete req.body._owner  // disallow owner reassignment.
   req.page.update(req.body.page)
@@ -43,6 +47,7 @@ const update = (req, res, next) => {
     .catch(next)
 }
 
+// 1 page from any user
 const destroy = (req, res, next) => {
   req.page.remove()
     .then(() => res.sendStatus(204))

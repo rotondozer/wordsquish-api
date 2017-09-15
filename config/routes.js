@@ -18,10 +18,31 @@ module.exports = require('lib/wiring/routes')
 .resources('users', { only: ['index', 'show'] })
 
 // all routes created
-.post('/posts', 'posts#create')
+
 .get('/posts/:id', 'posts#show')
 .get('/posts', 'posts#index')
-// TODO separate routes for updating title or body? or add
-// conditional in controller
 .patch('/posts/:id', 'posts#update')
+
+// **** Need to GET:
+// All posts by all users
+// All pages by all users
+// All posts by current user
+// All pages by current user
+// One post by current user
+// One page by current User
+
+// **** Need to UPDATE:
+// One part of one page by current user, without deleting other content
+// One part of one post by current user, without deleting other content
+
+// **** Need to DELETE:
+// One post by current user
 .delete('/posts/:id', 'posts#destroy')
+// One page by current user
+.delete('/pages/:id', 'pages#destroy')
+
+// **** Need to CREATE:
+// One page by current user
+.post('/pages', 'pages#create')
+// One post by current user
+.post('/posts', 'posts#create')
