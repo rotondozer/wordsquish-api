@@ -21,27 +21,22 @@ module.exports = require('lib/wiring/routes')
 
 // One post from current user?
 .patch('/posts/:id', 'posts#update')
+// One page from current user
+.patch('/pages/:id', 'pages#update')
 
-// **** Need to GET:
+// **** Need to GET posts:
 // All posts by all users
 .get('/posts', 'posts#index')
-// All pages by all users
-.get('/pages', 'pages#index')
-
 // All posts by current user
-.get('/posts/:user_id', 'posts#indexUserPosts')
-// // All pages by current user
-.get('/pages/:user_id', 'pages#indexUserPages')
-// // One post by current user
-// .get('/posts/:user_id/:id', 'posts#showUserPost')
-// // One page by current User
-// .get('pages/:user_id/:id', 'pages#showUserPage')
+.get('/posts/:user_id/my_posts', 'posts#indexUserPosts')
 // One post from any user
 .get('/posts/:id', 'posts#show')
-
-// **** Need to UPDATE:
-// One part of one page by current user, without deleting other content
-// One part of one post by current user, without deleting other content
+// All pages by all users
+.get('/pages', 'pages#index')
+// One page from any user
+.get('/pages/:id', 'posts#show')
+// All pages by current user
+.get('/pages/:user_id/my_posts', 'pages#indexUserPages')
 
 // **** Need to DELETE:
 // One post by current user

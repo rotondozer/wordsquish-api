@@ -19,10 +19,6 @@ const index = (req, res, next) => {
 }
 
 const indexUserPages = (req, res, next) => {
-  // Need to check if req.user.id === params.user_id?
-  console.log("req.user === " + req.user.id)
-  console.log("params ==== " + req.params.user_id)
-  console.log("request body owner === " + req.body._owner)
   Page.find({ _owner: req.params.user_id })
     .then(pages => res.json({
       pages: pages.map((e) =>
@@ -52,10 +48,16 @@ const create = (req, res, next) => {
     .catch(next)
 }
 
-// 1 page from any user. Any value not submitted will be updated to blank
 const update = (req, res, next) => {
+  const updatedPageData = req.body.page
+  for (const prop in updatedPageData) {
+    console.log(updatedPageData[prop])
+    if (updatedPageData[prop] === '') {
+      delete updatedPageData[prop]
+    }
+  }
   delete req.body._owner  // disallow owner reassignment.
-  req.page.update(req.body.page)
+  req.page.update(updatedPageData)
     .then(() => res.sendStatus(204))
     .catch(next)
 }

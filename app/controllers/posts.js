@@ -25,6 +25,7 @@ const create = (req, res, next) => {
 // A signed in user will be able to get ALL posts
 // (from other users also)
 const index = (req, res, next) => {
+  console.log('index method in posts controller')
   Post.find()
     .then(posts => res.json({
       posts: posts.map((e) =>
@@ -35,9 +36,7 @@ const index = (req, res, next) => {
 
 const indexUserPosts = (req, res, next) => {
   // Need to check if req.user.id === params.user_id?
-  console.log("req.user === " + req.user.id)
-  console.log("params ==== " + req.params.user_id)
-  console.log("request body owner === " +req.body._owner)
+  console.log('indexUserPosts method in posts controller')
   Post.find({ _owner: req.params.user_id })
     .then(posts => res.json({
       posts: posts.map((e) =>
@@ -49,19 +48,17 @@ const indexUserPosts = (req, res, next) => {
 // Like index, a signed in user will have access to ANY post
 // including those created by other users
 const show = (req, res) => {
+  console.log('show method in posts controller')
   res.json({
     // request.user just for JSON display?
-    post: req.post.toJSON({ user: req.user })
+    post: req.post.toJSON({ virtuals: true, user: req.user })
   })
 }
 
-// for curl, if a value is not included it will update to blank
 // UPDATING your files returns 204
 // UPDATING another users returns 404
 const update = (req, res, next) => {
-  console.log('request.user === ' + req.user)
-  console.log("req.body.post.title === " + req.body.post.title)
-  console.log("request post title === " + req.post.title)
+  console.log('update method in posts controller')
   // req.body.post === data being sent to update
   const updatedPostData = req.body.post
   // for each key in req.post === ''
