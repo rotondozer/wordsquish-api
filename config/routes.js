@@ -36,7 +36,7 @@ module.exports = require('lib/wiring/routes')
 // One page from any user
 .get('/pages/:id', 'posts#show')
 // All pages by current user
-.get('/pages/:user_id/my_posts', 'pages#indexUserPages')
+.get('/pages/:user_id/my_pages', 'pages#indexUserPages')
 
 // **** Need to DELETE:
 // One post by current user

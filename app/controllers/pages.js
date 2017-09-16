@@ -36,9 +36,14 @@ const show = (req, res) => {
 
 // Create 1 page with sections
 const create = (req, res, next) => {
+  console.log('creating page')
+  console.log('request body title ===' + req.body.page.title)
+  console.log('user id ===' + req.user._id)
   const page = Object.assign(req.body.page, {
     _owner: req.user._id
   })
+  console.log('page === ' + page)
+  console.log('page.sections.heading === ' + page.sections.heading)
   Page.create(page)
     .then(page =>
       res.status(201)
