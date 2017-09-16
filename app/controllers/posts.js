@@ -9,6 +9,9 @@ const setUser = require('./concerns/set-current-user')
 const setModel = require('./concerns/set-mongoose-model')
 
 const create = (req, res, next) => {
+  console.log('creating post')
+  console.log('request body post ===' + req.body.post.title)
+  console.log('user id ===' + req.user._id)
   const post = Object.assign(req.body.post, {
     _owner: req.user._id
   })
