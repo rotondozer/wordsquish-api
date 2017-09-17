@@ -29,8 +29,9 @@ const indexUserPages = (req, res, next) => {
 
 // One page from any user
 const show = (req, res) => {
+  console.log('params id = ' + req.params.id)
   res.json({
-    page: req.pages.toJSON({ virtuals: true, user: req.user })
+    page: req.page.toJSON({ virtuals: true, user: req.user })
   })
 }
 
