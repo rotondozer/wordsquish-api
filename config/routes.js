@@ -25,8 +25,6 @@ module.exports = require('lib/wiring/routes')
 .patch('/pages/:id', 'pages#update')
 
 // **** Need to GET posts:
-// One page from any user
-.get('/pages/:id', 'pages#show')
 // All posts by all users
 .get('/posts', 'posts#index')
 // All posts by current user
@@ -35,7 +33,8 @@ module.exports = require('lib/wiring/routes')
 .get('/posts/:id', 'posts#show')
 // All pages by all users
 .get('/pages', 'pages#index')
-
+// One page from any user
+.get('/pages/:id', 'pages#show')
 // All pages by current user
 .get('/pages/:user_id/my_pages', 'pages#indexUserPages')
 
