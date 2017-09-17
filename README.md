@@ -1,11 +1,20 @@
-Group Project API built with ExpressJS
+# DONGLE
+*A content management system for creating and editing webpages and blog posts* by Hadley Sweck, Antonio Brito and Nick Rotondo
 
-by Nick Rotondo, Hadley Sweck, Tony Brito
+## Routes:
+# The API expects these routes:
+- Get all posts by all users
+- Get all pages by all users
+- Get all posts by curent user
+- Get all pages by current user
+- Get one page by current user
+- Create one page by current user
+- Create one post by current user
+- Update one page by current user
+- Update one post by current user
+- Delete one post by current user
+- Delete one page by current user
 
-Hadley is here!
+# Front End Repository: https://github.com/GA-project-3-team-dongle/team-dongle-front-end
 
-Nick is here!
-
-Nick is here with Tony
-
-Team Dongle is awesome
+# Deployed API: https://cms-express-api.herokuapp.com
