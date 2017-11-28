@@ -1,6 +1,6 @@
 'use strict'
 
-const debug = require('debug')('cms-express-api:users')
+const debug = require('debug')('wordsquish-api:users')
 
 const controller = require('lib/wiring/controller')
 const models = require('app/models')

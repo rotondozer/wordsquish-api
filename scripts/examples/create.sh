@@ -1,6 +1,6 @@
 #!/bin/bash
 
-API="https://cms-express-api.herokuapp.com"
+API="https://wordsquish-api.herokuapp.com"
 URL_PATH="/examples"
 
 curl "${API}${URL_PATH}" \

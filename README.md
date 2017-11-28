@@ -17,4 +17,4 @@
 
 # Front End Repository: https://github.com/GA-project-3-team-dongle/team-dongle-front-end
 
-# Deployed API: https://cms-express-api.herokuapp.com
+# Deployed API: https://wordsquish-api.herokuapp.com
